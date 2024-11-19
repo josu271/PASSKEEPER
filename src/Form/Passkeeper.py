@@ -9,20 +9,23 @@ screen_height = root.winfo_screenheight()
 root.geometry(f"{screen_width}x{screen_height}")
 root.configure(bg="#fff")
 root.resizable(True, True)
-#imagen
-img = PhotoImage(file='../img/logo.png')
-Label(root, image=img, bg='#fff').place(x=900,y=-45)
+
+
 # Contenido principal
 shadow = Frame(root, width=350, bg="#d9d9d9")
 shadow.place(x=5, y=5, relheight=1)
 conten = Frame(root, width=350, bg="#fff", highlightbackground="#ccc", highlightthickness=1)
 conten.place(x=0, y=0, relheight=1)
-label = Label(conten, text="PASSKEEPER", fg='Black', bg='#fff', font=('Arial', 20, 'bold'))
+
+# Imagen
+img = PhotoImage(file='../img/logo.png')
+Label(conten, image=img, bg='#fff').place(x=85, y=35)
+label = Label(conten, text="PassKeeper", fg='Black', bg='#fff', font=('Arial', 20, 'bold'))
 label.place(x=80, y=30)
 
-agregar = tk.Button(conten, text="AGREGAR", bg='#57a1f8', fg="white", font=("Arial", 10, "bold"))
+agregar = tk.Button(conten, text="AGREGAR", bg='#8E17EB', fg="white", font=("Arial", 10, "bold"), activebackground="#000000", activeforeground="white")
 agregar.place(relx=0, rely=0.15, relwidth=1, height=50)
-config = tk.Button(conten, text="CONFIGURACIÓN", bg='#57a1f8', fg="white", font=("Arial", 10, "bold"))
+config = tk.Button(conten, text="CONFIGURACIÓN", bg='#8E17EB', fg="white", font=("Arial", 10, "bold"), activebackground="#000000", activeforeground="white")
 config.place(relx=0, rely=0.22, relwidth=1, height=50)
 
 # Búsqueda
@@ -32,9 +35,8 @@ look.place(relx=0.5, rely=0.06, anchor=N)
 barra = Entry(look, width=35, fg='black', bg="#f2f2f2", font=('Microsoft YaHei UI Light', 12), bd=0, highlightbackground="#57a1f8", highlightthickness=1)
 barra.place(relx=0.05, rely=0.2, relwidth=0.7, height=40)
 
-buscar = Button(look, text="Buscar", bg='#57a1f8', fg="white", font=("Arial", 12, "bold"), bd=0, activebackground="#005cbf", activeforeground="white", cursor="hand2")
+buscar = Button(look, text="Buscar", bg='#8E17EB', fg="white", font=("Arial", 12, "bold"), bd=0, activebackground="#000000", activeforeground="white", cursor="hand2")
 buscar.place(relx=0.78, rely=0.2, relwidth=0.2, height=40)
-
 
 # Tabla
 ftable = Frame(root, width=1400, height=800, bg="#fff")
@@ -44,14 +46,14 @@ ftable.place(x=425, y=150, relwidth=0.7, relheight=0.7)
 style = ttk.Style()
 style.theme_use("clam")
 style.configure("Treeview",
-                font=('Arial', 12)  ,
+                font=('Arial', 12),
                 rowheight=25,
                 background="#f9f9f9",
                 foreground="#000")
 style.configure("Treeview.Heading",
                 font=('Arial', 12, 'bold'),
-                background="#57a1f8",
-                foreground="black")
+                background="#8E17EB",
+                foreground="white")
 style.map("Treeview",
           background=[('selected', '#005cbf')],
           foreground=[('selected', 'black')])

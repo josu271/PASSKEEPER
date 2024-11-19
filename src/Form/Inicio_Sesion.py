@@ -1,6 +1,6 @@
 from tkinter import *
 from tkinter import messagebox
-from ..Logica import  Ventana
+from src.Logica.Ventana import Ventana  # Importa correctamente la clase Ventana
 
 # Ventana del inicio
 root = Tk()
@@ -9,7 +9,7 @@ root.geometry('925x500+300+200')
 root.configure(bg="#fff")
 root.resizable(False, False)
 
-# Crear instancia de AppManager
+# Crear instancia de la clase Ventana
 app_manager = Ventana(root)
 
 # Imagen
@@ -55,18 +55,18 @@ code.bind('<FocusOut>', on_leave)
 Frame(frame, width=295, height=2, bg='black').place(x=25, y=177)
 
 # Botón para iniciar sesión
-Button(frame, width=39, pady=7, text='Ingresar', bg='#57a1f8', fg='#fff', border=0, command=Ventana.abrir_passkeeper).place(x=35, y=204)
+Button(frame, width=39, pady=7, text='Ingresar', bg='#57a1f8', fg='#fff', border=0, command=app_manager.abrir_passkeeper).place(x=35, y=204)
 
 # Recuperar contraseña
 label = Label(frame, text="¿Olvidaste tu contraseña?", fg='black', bg='#fff', font=('Microsoft YaHei UI Light', 9))
 label.place(x=70, y=270)
-sign = Button(frame, width=8, text="Recuperar", border=0, bg='#fff', cursor='hand2', fg='#57a1f8', command=Ventana.abrir_reestablecer)
+sign = Button(frame, width=8, text="Recuperar", border=0, bg='#fff', cursor='hand2', fg='#57a1f8', command=app_manager.abrir_reestablecer)
 sign.place(x=215, y=270)
 
 # Registrar
 label2 = Label(frame, text="¿Es tu primera vez?", fg='black', bg='#fff', font=('Microsoft YaHei UI Light', 9))
 label2.place(x=70, y=290)
-registro = Button(frame, width=8, text="Registrate", border=0, bg='#fff', cursor='hand2', fg='#57a1f8', command=Ventana.abrir_registro)
+registro = Button(frame, width=8, text="Registrate", border=0, bg='#fff', cursor='hand2', fg='#57a1f8', command=app_manager.abrir_registro)
 registro.place(x=215, y=290)
 
 root.mainloop()

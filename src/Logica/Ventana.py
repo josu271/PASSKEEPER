@@ -1,4 +1,4 @@
-# gestor/app_manager.py
+
 import subprocess
 
 class Ventana:
