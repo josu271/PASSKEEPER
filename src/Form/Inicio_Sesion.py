@@ -1,6 +1,6 @@
 from tkinter import *
 from tkinter import messagebox
-from src.Logica.Ventana import Ventana  # Importa correctamente la clase Ventana
+from src.Logica.Ventana import Ventana
 
 # Ventana del inicio
 root = Tk()

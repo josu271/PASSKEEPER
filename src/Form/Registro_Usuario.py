@@ -1,5 +1,6 @@
 from tkinter import *
 from tkinter import messagebox
+from src.Logica.Ventana import Ventana
 
 #Ventana del inicio
 root = Tk()
@@ -7,6 +8,8 @@ root.title('Registro de Usuario')
 root.geometry('925x500+300+200')
 root.configure(bg="#fff")
 root.resizable(False, False)
+
+app_manager = Ventana(root)
 
 #imagen
 img = PhotoImage(file='../img/login.png')
@@ -70,10 +73,10 @@ confirm.bind('<FocusIn>', on_enter)
 confirm.bind('<FocusOut>', on_leave)
 Frame(frame,width=295,height=2,bg='black').place(x=25,y=245)
 #boton
-Button(frame,width=39,pady=7,text='Registrar',bg='#57a1f8',fg='#fff',border=0).place(x=35,y=260)
+Button(frame,width=39,pady=7,text='Registrar',bg='#57a1f8',fg='#fff',border=0, command=app_manager.abrir_inicio).place(x=35,y=260)
 label=Label(frame,text="¿Ya tienes una cuenta?",fg='black',bg='#fff',font=('Microsoft YaHei UI Light',9))
 label.place(x=80,y=305)
 #Registrar
-sign=Button(frame,width=10,text="Iniciar Sesion",border=0,bg='#fff',cursor='hand2', fg='#57a1f8')
+sign=Button(frame,width=10,text="Iniciar Sesion",border=0,bg='#fff',cursor='hand2', fg='#57a1f8', command=app_manager.abrir_inicio)
 sign.place(x=215,y=305)
 root.mainloop()

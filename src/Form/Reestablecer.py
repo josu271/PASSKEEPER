@@ -1,5 +1,7 @@
 from tkinter import *
 from tkinter import messagebox
+from src.Logica.Ventana import Ventana
+
 
 #Ventana del inicio
 root = Tk()
@@ -7,6 +9,8 @@ root.title('Restablecer Contraseña')
 root.geometry('925x500+300+200')
 root.configure(bg="#fff")
 root.resizable(False, False)
+
+app_manager = Ventana(root)
 
 #imagen
 img = PhotoImage(file='../img/login.png')
@@ -58,16 +62,16 @@ confirm.bind('<FocusIn>', on_enter)
 confirm.bind('<FocusOut>', on_leave)
 Frame(frame,width=295,height=2,bg='black').place(x=25,y=245)
 #boton
-Button(frame,width=39,pady=7,text='Restablecer',bg='#57a1f8',fg='#fff',border=0).place(x=35,y=260)
-label=Label(frame,text="¿Olvidaste tu contraseña?",fg='black',bg='#fff',font=('Microsoft YaHei UI Light',9))
+Button(frame,width=39,pady=7,text='Restablecer',bg='#57a1f8',fg='#fff',border=0, command=app_manager.abrir_inicio).place(x=35,y=260)
+label=Label(frame,text="¿Tienes una cuenta?",fg='black',bg='#fff',font=('Microsoft YaHei UI Light',9))
 label.place(x=70,y=300)
 #Recupera
-sign=Button(frame,width=8,text="Recuperar",border=0,bg='#fff',cursor='hand2', fg='#57a1f8')
+sign=Button(frame,width=10,text="Iniciar Sesion",border=0,bg='#fff',cursor='hand2', fg='#57a1f8', command=app_manager.abrir_inicio)
 sign.place(x=215,y=300)
 
 #Registrar
 label2=Label(frame,text="¿Es tu primera ves?",fg='black',bg='#fff',font=('Microsoft YaHei UI Light',9))
 label2.place(x=70,y=330)
-sign=Button(frame,width=8,text="Registrate",border=0,bg='#fff',cursor='hand2', fg='#57a1f8')
+sign=Button(frame,width=8,text="Registrate",border=0,bg='#fff',cursor='hand2', fg='#57a1f8', command=app_manager.abrir_registro)
 sign.place(x=215,y=330)
 root.mainloop()
