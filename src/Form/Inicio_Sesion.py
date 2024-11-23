@@ -1,6 +1,9 @@
 from tkinter import *
 from tkinter import messagebox
 from src.Logica.Ventana import Ventana
+from src.database.inicio import verificar_credenciales
+from src.Form.Passkeeper import PasskeeperApp
+
 
 # Ventana del inicio
 root = Tk()
@@ -47,15 +50,32 @@ def on_leave(e):
     if name == '':
         code.insert(0, 'Contraseña')
 
-code = Entry(frame, width=25, fg='black', border=0, bg="#fff", font=('Microsoft YaHei UI Light', 11))
+code = Entry(frame, width=25, fg='black', border=0, bg="#fff", font=('Microsoft YaHei UI Light', 11), show="*")
 code.place(x=30, y=150)
 code.insert(0, 'Contraseña')
 code.bind('<FocusIn>', on_enter)
 code.bind('<FocusOut>', on_leave)
 Frame(frame, width=295, height=2, bg='black').place(x=25, y=177)
 
+# Función para verificar las credenciales
+def verificar_usuario():
+    usuario = user.get()
+    contrasena = code.get()
+
+    if usuario == "IDUser" or contrasena == "Contraseña" or not usuario.strip() or not contrasena.strip():
+        messagebox.showerror("Error", "Por favor, completa todos los campos.")
+        return
+
+    if verificar_credenciales(usuario, contrasena):
+        root.destroy()  # Cierra la ventana de inicio de sesión
+        nuevo_root = Tk()
+        PasskeeperApp(nuevo_root, id_usuario=usuario)
+        nuevo_root.mainloop()
+    else:
+        messagebox.showerror("Error", "Credenciales incorrectas. Inténtalo de nuevo.")
+
 # Botón para iniciar sesión
-Button(frame, width=39, pady=7, text='Ingresar', bg='#57a1f8', fg='#fff', border=0, command=app_manager.abrir_passkeeper).place(x=35, y=204)
+Button(frame, width=39, pady=7, text='Ingresar', bg='#57a1f8', fg='#fff', border=0, command=verificar_usuario).place(x=35, y=204)
 
 # Recuperar contraseña
 label = Label(frame, text="¿Olvidaste tu contraseña?", fg='black', bg='#fff', font=('Microsoft YaHei UI Light', 9))

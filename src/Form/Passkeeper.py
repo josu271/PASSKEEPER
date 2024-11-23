@@ -1,93 +1,86 @@
 from tkinter import *
 from tkinter import ttk
-import tkinter as tk
+from src.database.tablePasskeeper import obtener_datos_passkeeper
 
-root = Tk()
-root.title('Passkeeper')
-screen_width = root.winfo_screenwidth()
-screen_height = root.winfo_screenheight()
-root.geometry(f"{screen_width}x{screen_height}")
-root.configure(bg="#fff")
-root.resizable(True, True)
+class PasskeeperApp:
+    def __init__(self, root, id_usuario):
+        self.root = root
+        self.id_usuario = id_usuario
+        self.root.title('Passkeeper')
+        screen_width = self.root.winfo_screenwidth()
+        screen_height = self.root.winfo_screenheight()
+        self.root.geometry(f"{screen_width}x{screen_height}")
+        self.root.configure(bg="#fff")
+        self.root.resizable(True, True)
 
+        # Contenido principal
+        shadow = Frame(self.root, width=350, bg="#d9d9d9")
+        shadow.place(x=5, y=5, relheight=1)
+        conten = Frame(self.root, width=350, bg="#fff", highlightbackground="#ccc", highlightthickness=1)
+        conten.place(x=0, y=0, relheight=1)
 
-# Contenido principal
-shadow = Frame(root, width=350, bg="#d9d9d9")
-shadow.place(x=5, y=5, relheight=1)
-conten = Frame(root, width=350, bg="#fff", highlightbackground="#ccc", highlightthickness=1)
-conten.place(x=0, y=0, relheight=1)
+        # Imagen
+        img = PhotoImage(file='../img/logo.png')
+        Label(conten, image=img, bg='#fff').place(x=85, y=35)
+        label = Label(conten, text="PassKeeper", fg='Black', bg='#fff', font=('Arial', 20, 'bold'))
+        label.place(x=80, y=30)
 
-# Imagen
-img = PhotoImage(file='../img/logo.png')
-Label(conten, image=img, bg='#fff').place(x=85, y=35)
-label = Label(conten, text="PassKeeper", fg='Black', bg='#fff', font=('Arial', 20, 'bold'))
-label.place(x=80, y=30)
+        agregar = Button(conten, text="AGREGAR", bg='#8E17EB', fg="white", font=("Arial", 10, "bold"), activebackground="#000000", activeforeground="white")
+        agregar.place(relx=0, rely=0.15, relwidth=1, height=50)
+        config = Button(conten, text="CONFIGURACIÓN", bg='#8E17EB', fg="white", font=("Arial", 10, "bold"), activebackground="#000000", activeforeground="white")
+        config.place(relx=0, rely=0.22, relwidth=1, height=50)
 
-agregar = tk.Button(conten, text="AGREGAR", bg='#8E17EB', fg="white", font=("Arial", 10, "bold"), activebackground="#000000", activeforeground="white")
-agregar.place(relx=0, rely=0.15, relwidth=1, height=50)
-config = tk.Button(conten, text="CONFIGURACIÓN", bg='#8E17EB', fg="white", font=("Arial", 10, "bold"), activebackground="#000000", activeforeground="white")
-config.place(relx=0, rely=0.22, relwidth=1, height=50)
+        # Tabla
+        ftable = Frame(self.root, width=1400, height=800, bg="#fff")
+        ftable.place(x=425, y=150, relwidth=0.7, relheight=0.7)
 
-# Búsqueda
-look = Frame(root, width=500, height=100, bg="#fff", highlightbackground="#fff", highlightthickness=0)
-look.place(relx=0.5, rely=0.06, anchor=N)
+        style = ttk.Style()
+        style.theme_use("clam")
+        style.configure("Treeview",
+                        font=('Arial', 12),
+                        rowheight=25,
+                        background="#f9f9f9",
+                        foreground="#000")
+        style.configure("Treeview.Heading",
+                        font=('Arial', 12, 'bold'),
+                        background="#8E17EB",
+                        foreground="white")
+        style.map("Treeview",
+                  background=[('selected', '#005cbf')],
+                  foreground=[('selected', 'black')])
 
-barra = Entry(look, width=35, fg='black', bg="#f2f2f2", font=('Microsoft YaHei UI Light', 12), bd=0, highlightbackground="#57a1f8", highlightthickness=1)
-barra.place(relx=0.05, rely=0.2, relwidth=0.7, height=40)
+        self.tabla = ttk.Treeview(ftable, columns=("Usuario", "Contraseña", "Sitio WEB", "Seguridad"), show="headings")
+        self.tabla.heading("Usuario", text="Usuario")
+        self.tabla.heading("Contraseña", text="Contraseña")
+        self.tabla.heading("Sitio WEB", text="Sitio WEB")
+        self.tabla.heading("Seguridad", text="Seguridad")
+        self.tabla.column("Usuario", anchor="center")
+        self.tabla.column("Contraseña", anchor="center")
+        self.tabla.column("Sitio WEB", anchor="center")
+        self.tabla.column("Seguridad", anchor="center")
 
-buscar = Button(look, text="Buscar", bg='#8E17EB', fg="white", font=("Arial", 12, "bold"), bd=0, activebackground="#000000", activeforeground="white", cursor="hand2")
-buscar.place(relx=0.78, rely=0.2, relwidth=0.2, height=40)
+        scroll_y = ttk.Scrollbar(ftable, orient=VERTICAL, command=self.tabla.yview)
+        self.tabla.configure(yscrollcommand=scroll_y.set)
 
-# Tabla
-ftable = Frame(root, width=1400, height=800, bg="#fff")
-ftable.place(x=425, y=150, relwidth=0.7, relheight=0.7)
+        scroll_y.pack(side=RIGHT, fill=Y)
+        self.tabla.pack(fill=BOTH, expand=True)
 
-# Configuración de estilo para mejorar apariencia de la tabla
-style = ttk.Style()
-style.theme_use("clam")
-style.configure("Treeview",
-                font=('Arial', 12),
-                rowheight=25,
-                background="#f9f9f9",
-                foreground="#000")
-style.configure("Treeview.Heading",
-                font=('Arial', 12, 'bold'),
-                background="#8E17EB",
-                foreground="white")
-style.map("Treeview",
-          background=[('selected', '#005cbf')],
-          foreground=[('selected', 'black')])
+        # Cargar datos
+        self.cargar_datos()
 
-tabla = ttk.Treeview(ftable, columns=("Usuario", "Contraseña", "Sitio WEB", "Seguridad", "Acciones"), show="headings")
-tabla.heading("Usuario", text="Usuario")
-tabla.heading("Contraseña", text="Contraseña")
-tabla.heading("Sitio WEB", text="Sitio WEB")
-tabla.heading("Seguridad", text="Seguridad")
-tabla.heading("Acciones", text="Acciones")
-tabla.column("Usuario", anchor="center")
-tabla.column("Contraseña", anchor="center")
-tabla.column("Sitio WEB", anchor="center")
-tabla.column("Seguridad", anchor="center")
-tabla.column("Acciones", anchor="center")
+        # Mantener referencia de la imagen
+        self.img_ref = img
 
-style.configure("Horizontal.TScrollbar",
-                background="white",
-                troughcolor="white",
-                bordercolor="white",
-                arrowcolor="black")
-style.configure("Vertical.TScrollbar",
-                background="white",
-                troughcolor="white",
-                bordercolor="white",
-                arrowcolor="black")
+    def cargar_datos(self):
+        """
+        Carga los datos del usuario actual en la tabla.
+        """
+        datos = obtener_datos_passkeeper(self.id_usuario)
+        for dato in datos:
+            self.tabla.insert("", "end", values=dato)
 
-scroll_x = ttk.Scrollbar(ftable, orient=HORIZONTAL, command=tabla.xview, style="Horizontal.TScrollbar")
-scroll_y = ttk.Scrollbar(ftable, orient=VERTICAL, command=tabla.yview, style="Vertical.TScrollbar")
-
-tabla.configure(xscrollcommand=scroll_x.set, yscrollcommand=scroll_y.set)
-
-scroll_x.pack(side=BOTTOM, fill=X)
-scroll_y.pack(side=RIGHT, fill=Y)
-tabla.pack(fill=BOTH, expand=True)
-
-root.mainloop()
+# Para probar la clase
+if __name__ == "__main__":
+    root = Tk()
+    app = PasskeeperApp(root, id_usuario="usuario_prueba")  # Reemplazar con IDUser válido
+    root.mainloop()
