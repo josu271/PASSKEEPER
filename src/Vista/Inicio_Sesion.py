@@ -2,7 +2,7 @@ from tkinter import *
 from tkinter import messagebox
 from src.Logica.Ventana import Ventana
 from src.database.inicio import verificar_credenciales
-from src.Form.Passkeeper import PasskeeperApp
+from src.Vista.Passkeeper import PasskeeperApp
 
 
 # Ventana del inicio
@@ -16,7 +16,7 @@ root.resizable(False, False)
 app_manager = Ventana(root)
 
 # Imagen
-img = PhotoImage(file='../img/login.png')
+img = PhotoImage(file='../../Imagenes/img/login.png')
 Label(root, image=img, bg='#fff').place(x=50, y=50)
 
 # Formulario

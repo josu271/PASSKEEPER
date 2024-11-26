@@ -20,7 +20,7 @@ class PasskeeperApp:
         conten.place(x=0, y=0, relheight=1)
 
         # Imagen
-        img = PhotoImage(file='../img/logo.png')
+        img = PhotoImage(file='../../Imagenes/img/logo.png')
         Label(conten, image=img, bg='#fff').place(x=85, y=35)
         label = Label(conten, text="PassKeeper", fg='Black', bg='#fff', font=('Arial', 20, 'bold'))
         label.place(x=80, y=30)

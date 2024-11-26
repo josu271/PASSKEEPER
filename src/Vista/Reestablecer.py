@@ -1,6 +1,7 @@
 from tkinter import *
 from tkinter import messagebox
 from src.database.Reestablecer import DBController
+from src.Logica.Ventana import Ventana
 
 # Crear instancia del controlador de base de datos
 db = DBController()
@@ -12,8 +13,11 @@ root.geometry('925x500+300+200')
 root.configure(bg="#fff")
 root.resizable(False, False)
 
+# Crear instancia de Ventana
+ventana = Ventana(root)
+
 # Imagen
-img = PhotoImage(file='../img/login.png')
+img = PhotoImage(file='../../Imagenes/img/login.png')
 Label(root, image=img, bg='#fff').place(x=50, y=50)
 
 # Formulario
@@ -23,13 +27,16 @@ heading = Label(frame, text='Restablecer Contraseña', fg='#57a1f8', bg='#fff',
                 font=('Microsoft YaHei UI Light', 23, 'bold'))
 heading.place(x=10, y=5)
 
+
 # Usuario
 def on_enter_user(e):
     user_entry.delete(0, 'end')
 
+
 def on_leave_user(e):
     if not user_entry.get():
         user_entry.insert(0, 'Usuario')
+
 
 user_entry = Entry(frame, width=25, fg='black', border=0, bg="#fff", font=('Microsoft YaHei UI Light', 11))
 user_entry.place(x=30, y=80)
@@ -38,13 +45,16 @@ user_entry.bind('<FocusIn>', on_enter_user)
 user_entry.bind('<FocusOut>', on_leave_user)
 Frame(frame, width=295, height=2, bg='black').place(x=25, y=107)
 
+
 # Nueva contraseña
 def on_enter_pass(e):
     password_entry.delete(0, 'end')
 
+
 def on_leave_pass(e):
     if not password_entry.get():
         password_entry.insert(0, 'Nueva Contraseña')
+
 
 password_entry = Entry(frame, width=25, fg='black', border=0, bg="#fff", font=('Microsoft YaHei UI Light', 11))
 password_entry.place(x=30, y=150)
@@ -53,13 +63,16 @@ password_entry.bind('<FocusIn>', on_enter_pass)
 password_entry.bind('<FocusOut>', on_leave_pass)
 Frame(frame, width=295, height=2, bg='black').place(x=25, y=177)
 
+
 # Confirmar contraseña
 def on_enter_confirm(e):
     confirm_entry.delete(0, 'end')
 
+
 def on_leave_confirm(e):
     if not confirm_entry.get():
         confirm_entry.insert(0, 'Confirmar Contraseña')
+
 
 confirm_entry = Entry(frame, width=25, fg='black', border=0, bg="#fff", font=('Microsoft YaHei UI Light', 11))
 confirm_entry.place(x=30, y=215)
@@ -67,6 +80,7 @@ confirm_entry.insert(0, 'Confirmar Contraseña')
 confirm_entry.bind('<FocusIn>', on_enter_confirm)
 confirm_entry.bind('<FocusOut>', on_leave_confirm)
 Frame(frame, width=295, height=2, bg='black').place(x=25, y=245)
+
 
 # Función para restablecer contraseña
 def restablecer_contraseña():
@@ -93,7 +107,12 @@ def restablecer_contraseña():
     else:
         messagebox.showerror("Error", "No se pudo actualizar la contraseña.")
 
+
 # Botón de restablecer
-Button(frame, width=39, pady=7, text='Restablecer', bg='#57a1f8', fg='#fff', border=0, command=restablecer_contraseña).place(x=35, y=260)
+Button(frame, width=39, pady=7, text='Restablecer', bg='#57a1f8', fg='#fff', border=0,
+       command=restablecer_contraseña).place(x=35, y=260)
+# Botón de volver a inicio
+Button(frame, width=39, pady=7, text='Volver a Inicio de Sesión', bg='#57a1f8', fg='#fff', border=0,
+       command=ventana.abrir_inicio).place(x=35, y=300)
 
 root.mainloop()

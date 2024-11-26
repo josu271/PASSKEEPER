@@ -49,7 +49,7 @@ root.configure(bg="#fff")
 root.resizable(False, False)
 app_manager = Ventana(root)
 # Imagen
-img = PhotoImage(file='../img/login.png')
+img = PhotoImage(file='../../Imagenes/img/login.png')
 Label(root, image=img, bg='#fff').place(x=50, y=50)
 
 # Formulario
