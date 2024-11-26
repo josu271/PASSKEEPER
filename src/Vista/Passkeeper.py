@@ -2,8 +2,7 @@ from tkinter import *
 from tkinter import ttk
 from src.database.tablePasskeeper import obtener_datos_passkeeper
 from src.Vista.Editar import EditarApp
-
-
+from src.Logica.Ventana import Ventana
 class PasskeeperApp:
     def __init__(self, root, id_usuario):
         self.root = root
@@ -43,6 +42,12 @@ class PasskeeperApp:
                                  activebackground="#000000", activeforeground="white",
                                  command=self.eliminar_seleccionado)
         eliminar_button.place(relx=0, rely=0.39, relwidth=1, height=50)
+
+        # Botón de salir
+        salir_button = Button(conten, text="SALIR", bg='#8E17EB', fg="white", font=("Arial", 10, "bold"),
+                              activebackground="#000000", activeforeground="white",
+                              command=self.root.destroy)  # Usa destroy para cerrar la ventana
+        salir_button.place(relx=0, rely=0.46, relwidth=1, height=50)
 
         # Tabla
         ftable = Frame(self.root, width=1400, height=800, bg="#fff")
@@ -86,9 +91,7 @@ class PasskeeperApp:
         self.img_ref = img
 
     def cargar_datos(self):
-        """
-        Carga los datos del usuario actual en la tabla.
-        """
+
         datos = obtener_datos_passkeeper(self.id_usuario)
         for dato in datos:
             self.tabla.insert("", "end", values=dato)

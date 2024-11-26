@@ -19,4 +19,4 @@ def registrar_usuario_bd(nombre, contrasena, correo):
         return True
     except Exception as e:
         messagebox.showerror("Error", f"Error al guardar en la base de datos: {e}")
-        return False  # Operación fallida
+        return False

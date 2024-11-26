@@ -56,3 +56,4 @@ finally:
     # Cerrar la conexión
     if 'mi_conexion' in locals():
         mi_conexion.close()
+

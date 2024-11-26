@@ -115,6 +115,7 @@ def restablecer_contraseña():
         messagebox.showerror("Error", "No se pudo actualizar la contraseña.")
 
 
+
 # Botón de restablecer
 Button(frame, width=39, pady=7, text='Restablecer', bg='#8e17eb', fg='#fff', border=0,  # Cambiar el color a púrpura
        command=restablecer_contraseña).place(x=35, y=260)

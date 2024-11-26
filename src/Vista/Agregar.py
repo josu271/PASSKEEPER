@@ -1,11 +1,11 @@
 from tkinter import *
 from tkinter import messagebox
-
+from src.database.tablePasskeeper import agregar_datos_passkeeper
 
 class AgregarApp:
     def __init__(self, root, parent):
         self.root = root
-        self.parent = parent  # Referencia a la instancia de PasskeeperApp
+        self.parent = parent
 
         self.root.title("Agregar Contraseña")
         self.root.geometry("400x300")
@@ -51,19 +51,30 @@ class AgregarApp:
         self.seguridad_label.config(text=seguridad)
 
     def agregar_entrada(self):
-        usuario = self.usuario_entry.get()
+        usuariox = self.parent.id_usuario
+        usuarioPass = self.usuario_entry.get()
         contrasena = self.contrasena_entry.get()
         sitio = self.sitio_entry.get()
+        seguridad = self.seguridad_label.cget("text")  # Obtener el texto actual de seguridad
 
         # Validar que todos los campos estén completos
-        if not usuario or not contrasena or not sitio:
+        if not usuarioPass or not contrasena or not sitio:
             messagebox.showwarning("Formulario incompleto", "Por favor completa todos los campos.")
             return
 
-        seguridad = self.seguridad_label.cget("text")  # Obtener el texto del label de seguridad
+        try:
+            # Intentar agregar los datos a la base de datos
+            agregar_datos_passkeeper(usuarioPass, contrasena, sitio, seguridad, id_user=usuariox)
 
-        # Llamar al método agregar_entrada de la instancia padre (PasskeeperApp)
-        self.parent.agregar_entrada(usuario, contrasena, sitio, seguridad)
+            # Mensaje de éxito
+            messagebox.showinfo("Éxito", "Datos agregados correctamente a la base de datos.")
 
-        # Cerrar la ventana secundaria
-        self.root.destroy()
+            # Llamar al método agregar_entrada de la instancia padre (PasskeeperApp)
+            if hasattr(self.parent, "agregar_entrada"):
+                self.parent.agregar_entrada(usuarioPass, contrasena, sitio, seguridad)
+
+            # Cerrar la ventana secundaria
+            self.root.destroy()
+        except Exception as e:
+            # Manejo de errores
+            messagebox.showerror("Error", f"No se pudieron agregar los datos: {e}")

@@ -1,3 +1,4 @@
+from operator import truediv
 from tkinter import *
 from tkinter import messagebox
 from src.Logica.Ventana import Ventana
@@ -78,6 +79,7 @@ def verificar_usuario():
         nuevo_root = Tk()
         PasskeeperApp(nuevo_root, id_usuario=usuario)
         nuevo_root.mainloop()
+        return "Credeciales correctas"
     else:
         messagebox.showerror("Error", "Credenciales incorrectas. Inténtalo de nuevo.")
 

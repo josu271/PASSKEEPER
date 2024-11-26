@@ -15,12 +15,7 @@ def obtener_conexion():
         return None
 
 def verificar_credenciales(usuario, contrasena):
-    """
-    Verifica si un usuario y contraseña son válidos en la base de datos.
-    :param usuario: Nombre del usuario.
-    :param contrasena: Contraseña del usuario.
-    :return: True si las credenciales son válidas, False en caso contrario.
-    """
+
     try:
         conexion = obtener_conexion()
         if not conexion:

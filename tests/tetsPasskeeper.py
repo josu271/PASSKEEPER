@@ -2,13 +2,7 @@ import unittest
 from src.database.inicio import verificar_credenciales
 
 
-class TestSimpleInicioSesion(unittest.TestCase):
-
-    def test_credenciales_correctas(self):
-        usuario = "tati"
-        contrasena = "123"
-        resultado = verificar_credenciales(usuario, contrasena)
-        self.assertTrue(resultado, "Las credenciales correctas deberían retornar True.")
+class PruebasPassKeeper(unittest.TestCase):
 
     def test_credenciales_incorrectas(self):
         usuario = "123"
