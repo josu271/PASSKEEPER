@@ -4,7 +4,6 @@ from src.database.Registro import registrar_usuario_bd
 from src.Logica.Ventana import Ventana
 
 
-
 def registrar_usuario():
     correo = email.get()
     nombre = user.get()
@@ -30,6 +29,7 @@ def registrar_usuario():
         messagebox.showinfo("Éxito", "Usuario registrado exitosamente.")
         limpiar_formulario()
 
+
 # Función para limpiar el formulario después de registrar
 def limpiar_formulario():
     email.delete(0, END)
@@ -40,6 +40,7 @@ def limpiar_formulario():
     password.insert(0, 'Contraseña')
     confirm.delete(0, END)
     confirm.insert(0, 'Confirmar Contraseña')
+
 
 # Ventana del inicio
 root = Tk()
@@ -55,41 +56,54 @@ Label(root, image=img, bg='#fff').place(x=50, y=50)
 # Formulario
 frame = Frame(root, width=350, height=380, bg="white")
 frame.place(x=480, y=70)
-heading = Label(frame, text='Registrar Usuario', fg='#57a1f8', bg='#fff', font=('Microsoft YaHei UI Light', 23, 'bold'))
+heading = Label(frame, text='Registrar Usuario', fg='#8e17eb', bg='#fff', font=('Microsoft YaHei UI Light', 23, 'bold'))
 heading.place(x=60, y=5)
+
 
 # Funciones de ayuda para los campos
 def on_enter_email(e):
     if email.get() == 'Correo Electronico':
         email.delete(0, 'end')
 
+
 def on_leave_email(e):
     if email.get() == '':
         email.insert(0, 'Correo Electronico')
+
 
 def on_enter_user(e):
     if user.get() == 'Usuario':
         user.delete(0, 'end')
 
+
 def on_leave_user(e):
     if user.get() == '':
         user.insert(0, 'Usuario')
 
+
 def on_enter_password(e):
     if password.get() == 'Contraseña':
         password.delete(0, 'end')
+        password.config(show="*")
+
 
 def on_leave_password(e):
     if password.get() == '':
         password.insert(0, 'Contraseña')
+        password.config(show="")
+
 
 def on_enter_confirm(e):
     if confirm.get() == 'Confirmar Contraseña':
         confirm.delete(0, 'end')
+        confirm.config(show="*")
+
 
 def on_leave_confirm(e):
     if confirm.get() == '':
         confirm.insert(0, 'Confirmar Contraseña')
+        confirm.config(show="")
+
 
 # Campos del formulario
 email = Entry(frame, width=25, fg='black', border=0, bg="#fff", font=('Microsoft YaHei UI Light', 11))
@@ -121,12 +135,14 @@ confirm.bind('<FocusOut>', on_leave_confirm)
 Frame(frame, width=295, height=2, bg='black').place(x=25, y=245)
 
 # Botón para registrar
-Button(frame, width=39, pady=7, text='Registrar', bg='#57a1f8', fg='#fff', border=0, command=registrar_usuario).place(x=35, y=260)
+Button(frame, width=39, pady=7, text='Registrar', bg='#8e17eb', fg='#fff', border=0, command=registrar_usuario).place(
+    x=35, y=260)
 
 label = Label(frame, text="¿Ya tienes una cuenta?", fg='black', bg='#fff', font=('Microsoft YaHei UI Light', 9))
 label.place(x=80, y=305)
 
-sign = Button(frame, width=10, text="Iniciar Sesion", border=0, bg='#fff', cursor='hand2', fg='#57a1f8',command=app_manager.abrir_inicio)
+sign = Button(frame, width=10, text="Iniciar Sesion", border=0, bg='#fff', cursor='hand2', fg='#8e17eb',
+              command=app_manager.abrir_inicio)
 sign.place(x=215, y=305)
 
 root.mainloop()

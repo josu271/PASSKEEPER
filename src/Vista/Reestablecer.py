@@ -23,7 +23,7 @@ Label(root, image=img, bg='#fff').place(x=50, y=50)
 # Formulario
 frame = Frame(root, width=400, height=400, bg="#fff")
 frame.place(x=530, y=70)
-heading = Label(frame, text='Restablecer Contraseña', fg='#57a1f8', bg='#fff',
+heading = Label(frame, text='Restablecer Contraseña', fg='#8e17eb', bg='#fff',
                 font=('Microsoft YaHei UI Light', 23, 'bold'))
 heading.place(x=10, y=5)
 
@@ -49,11 +49,13 @@ Frame(frame, width=295, height=2, bg='black').place(x=25, y=107)
 # Nueva contraseña
 def on_enter_pass(e):
     password_entry.delete(0, 'end')
+    password_entry.config(show="*")
 
 
 def on_leave_pass(e):
     if not password_entry.get():
         password_entry.insert(0, 'Nueva Contraseña')
+        password_entry.config(show="")
 
 
 password_entry = Entry(frame, width=25, fg='black', border=0, bg="#fff", font=('Microsoft YaHei UI Light', 11))
@@ -67,11 +69,13 @@ Frame(frame, width=295, height=2, bg='black').place(x=25, y=177)
 # Confirmar contraseña
 def on_enter_confirm(e):
     confirm_entry.delete(0, 'end')
+    confirm_entry.config(show="*")
 
 
 def on_leave_confirm(e):
     if not confirm_entry.get():
         confirm_entry.insert(0, 'Confirmar Contraseña')
+        confirm_entry.config(show="")
 
 
 confirm_entry = Entry(frame, width=25, fg='black', border=0, bg="#fff", font=('Microsoft YaHei UI Light', 11))
@@ -109,10 +113,10 @@ def restablecer_contraseña():
 
 
 # Botón de restablecer
-Button(frame, width=39, pady=7, text='Restablecer', bg='#57a1f8', fg='#fff', border=0,
+Button(frame, width=39, pady=7, text='Restablecer', bg='#8e17eb', fg='#fff', border=0,
        command=restablecer_contraseña).place(x=35, y=260)
 # Botón de volver a inicio
-Button(frame, width=39, pady=7, text='Volver a Inicio de Sesión', bg='#57a1f8', fg='#fff', border=0,
+Button(frame, width=39, pady=7, text='Volver a Inicio de Sesión', bg='#8e17eb', fg='#fff', border=0,
        command=ventana.abrir_inicio).place(x=35, y=300)
 
 root.mainloop()
