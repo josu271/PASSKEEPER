@@ -21,8 +21,8 @@ Label(root, image=img, bg='#fff').place(x=50, y=50)
 # Formulario
 frame = Frame(root, width=350, height=350, bg="#fff")
 frame.place(x=480, y=70)
-heading = Label(frame, text='Iniciar Sesión', fg='#8e17eb', bg='#fff', font=('Tahoma', 27, 'bold'))
-heading.place(x=35, y=5)
+heading = Label(frame, text='Iniciar sesión', fg='#8e17eb', bg='#fff', font=('Helvetica', 27, 'bold'))
+heading.place(x=70, y=5)
 
 
 # Usuario

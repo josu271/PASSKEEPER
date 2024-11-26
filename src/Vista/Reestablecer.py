@@ -6,15 +6,15 @@ from src.Logica.Ventana import Ventana
 # Crear instancia del controlador de base de datos
 db = DBController()
 
-# Ventana del inicio
+# Ventana del restablecimiento de contraseña
 root = Tk()
 root.title('Restablecer Contraseña')
 root.geometry('925x500+300+200')
 root.configure(bg="#fff")
 root.resizable(False, False)
 
-# Crear instancia de Ventana
-ventana = Ventana(root)
+# Crear instancia de la clase Ventana
+app_manager = Ventana(root)
 
 # Imagen
 img = PhotoImage(file='../../Imagenes/img/login.png')
@@ -24,13 +24,14 @@ Label(root, image=img, bg='#fff').place(x=50, y=50)
 frame = Frame(root, width=400, height=400, bg="#fff")
 frame.place(x=530, y=70)
 heading = Label(frame, text='Restablecer Contraseña', fg='#8e17eb', bg='#fff',
-                font=('Microsoft YaHei UI Light', 23, 'bold'))
+                font=('Microsoft YaHei UI Light', 23, 'bold'))  # Cambiar el color a púrpura
 heading.place(x=10, y=5)
 
 
 # Usuario
 def on_enter_user(e):
-    user_entry.delete(0, 'end')
+    if user_entry.get() == "Usuario":
+        user_entry.delete(0, 'end')
 
 
 def on_leave_user(e):
@@ -48,8 +49,9 @@ Frame(frame, width=295, height=2, bg='black').place(x=25, y=107)
 
 # Nueva contraseña
 def on_enter_pass(e):
-    password_entry.delete(0, 'end')
-    password_entry.config(show="*")
+    if password_entry.get() == "Nueva Contraseña":
+        password_entry.delete(0, 'end')
+        password_entry.config(show="*")
 
 
 def on_leave_pass(e):
@@ -68,8 +70,9 @@ Frame(frame, width=295, height=2, bg='black').place(x=25, y=177)
 
 # Confirmar contraseña
 def on_enter_confirm(e):
-    confirm_entry.delete(0, 'end')
-    confirm_entry.config(show="*")
+    if confirm_entry.get() == "Confirmar Contraseña":
+        confirm_entry.delete(0, 'end')
+        confirm_entry.config(show="*")
 
 
 def on_leave_confirm(e):
@@ -113,10 +116,12 @@ def restablecer_contraseña():
 
 
 # Botón de restablecer
-Button(frame, width=39, pady=7, text='Restablecer', bg='#8e17eb', fg='#fff', border=0,
+Button(frame, width=39, pady=7, text='Restablecer', bg='#8e17eb', fg='#fff', border=0,  # Cambiar el color a púrpura
        command=restablecer_contraseña).place(x=35, y=260)
-# Botón de volver a inicio
-Button(frame, width=39, pady=7, text='Volver a Inicio de Sesión', bg='#8e17eb', fg='#fff', border=0,
-       command=ventana.abrir_inicio).place(x=35, y=300)
+
+# Botón de regresar a Inicio de Sesión
+sign = Button(frame, width=25, text="Volver a inicio de sesion", border=0, bg='#fff', cursor='hand2', fg='#8e17eb',
+              command=app_manager.abrir_inicio)
+sign.place(x=80, y=305)
 
 root.mainloop()

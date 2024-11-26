@@ -1,11 +1,14 @@
 from tkinter import *
 from tkinter import ttk
 from src.database.tablePasskeeper import obtener_datos_passkeeper
+from src.Vista.Editar import EditarApp
+
 
 class PasskeeperApp:
     def __init__(self, root, id_usuario):
         self.root = root
         self.id_usuario = id_usuario
+        self.entradas = []
         self.root.title('Passkeeper')
         screen_width = self.root.winfo_screenwidth()
         screen_height = self.root.winfo_screenheight()
@@ -21,14 +24,25 @@ class PasskeeperApp:
 
         # Imagen
         img = PhotoImage(file='../../Imagenes/img/logo.png')
-        Label(conten, image=img, bg='#fff').place(x=85, y=35)
+        Label(conten, image=img, bg='#fff').place(x=85, y=50)
         label = Label(conten, text="PassKeeper", fg='Black', bg='#fff', font=('Arial', 20, 'bold'))
         label.place(x=80, y=30)
 
-        agregar = Button(conten, text="AGREGAR", bg='#8E17EB', fg="white", font=("Arial", 10, "bold"), activebackground="#000000", activeforeground="white")
-        agregar.place(relx=0, rely=0.15, relwidth=1, height=50)
-        config = Button(conten, text="CONFIGURACIÓN", bg='#8E17EB', fg="white", font=("Arial", 10, "bold"), activebackground="#000000", activeforeground="white")
-        config.place(relx=0, rely=0.22, relwidth=1, height=50)
+        # Botón para abrir la ventana de agregar entrada
+        agregar_button = Button(conten, text="AGREGAR", bg='#8E17EB', fg="white", font=("Arial", 10, "bold"),
+                                activebackground="#000000", activeforeground="white", command=self.open_agregar)
+        agregar_button.place(relx=0, rely=0.25, relwidth=1, height=50)
+
+        # Botón de editar
+        editar_button = Button(conten, text="EDITAR", bg='#8E17EB', fg="white", font=("Arial", 10, "bold"),
+                               activebackground="#000000", activeforeground="white", command=self.open_editar)
+        editar_button.place(relx=0, rely=0.32, relwidth=1, height=50)
+
+        # Botón de eliminar
+        eliminar_button = Button(conten, text="ELIMINAR", bg='#8E17EB', fg="white", font=("Arial", 10, "bold"),
+                                 activebackground="#000000", activeforeground="white",
+                                 command=self.eliminar_seleccionado)
+        eliminar_button.place(relx=0, rely=0.39, relwidth=1, height=50)
 
         # Tabla
         ftable = Frame(self.root, width=1400, height=800, bg="#fff")
@@ -46,7 +60,7 @@ class PasskeeperApp:
                         background="#8E17EB",
                         foreground="white")
         style.map("Treeview",
-                  background=[('selected', '#005cbf')],
+                  background=[('selected', '#d3d3d3')],
                   foreground=[('selected', 'black')])
 
         self.tabla = ttk.Treeview(ftable, columns=("Usuario", "Contraseña", "Sitio WEB", "Seguridad"), show="headings")
@@ -79,8 +93,47 @@ class PasskeeperApp:
         for dato in datos:
             self.tabla.insert("", "end", values=dato)
 
+    def agregar_entrada(self, usuario, contrasena, sitio, seguridad):
+        nueva_entrada = {
+            "usuario": usuario,
+            "contrasena": contrasena,
+            "sitio": sitio,
+            "seguridad": seguridad
+        }
+        self.entradas.append(nueva_entrada)
+        # Agregar la nueva entrada a la tabla
+        self.tabla.insert("", "end", values=(usuario, contrasena, sitio, seguridad))
+
+    def eliminar_seleccionado(self):
+        seleccion = self.tabla.selection()
+        if seleccion:
+            for item in seleccion:
+                self.tabla.delete(item)
+
+    def open_agregar(self):
+        from src.Vista.Agregar import AgregarApp  # Importar aquí para evitar la importación circular
+        agregar_root = Toplevel(self.root)  # Utilizar Toplevel para crear una ventana secundaria
+        AgregarApp(agregar_root, self)  # Pasar la instancia actual de PasskeeperApp a AgregarApp
+        agregar_root.mainloop()
+
+    def open_editar(self):
+        # Obtener el elemento seleccionado
+        seleccion = self.tabla.selection()
+        if not seleccion:
+            return
+
+        # Obtener los valores del elemento seleccionado
+        item = self.tabla.item(seleccion[0])
+        valores = item["values"]
+
+        # Abrir ventana de editar con los valores obtenidos
+        editar_root = Toplevel(self.root)
+        EditarApp(editar_root, self, valores)
+        editar_root.mainloop()
+
+
 # Para probar la clase
 if __name__ == "__main__":
     root = Tk()
-    app = PasskeeperApp(root, id_usuario="usuario_prueba")  # Reemplazar con IDUser válido
+    app = PasskeeperApp(root, id_usuario="usuario_prueba")
     root.mainloop()
