@@ -1,4 +1,3 @@
-from operator import truediv
 from tkinter import *
 from tkinter import messagebox
 from src.Logica.Ventana import Ventana

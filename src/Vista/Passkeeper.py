@@ -2,7 +2,7 @@ from tkinter import *
 from tkinter import ttk
 from src.database.tablePasskeeper import obtener_datos_passkeeper
 from src.Vista.Editar import EditarApp
-from src.Logica.Ventana import Ventana
+from src.Vista.Agregar import AgregarApp
 class PasskeeperApp:
     def __init__(self, root, id_usuario):
         self.root = root
@@ -114,9 +114,9 @@ class PasskeeperApp:
                 self.tabla.delete(item)
 
     def open_agregar(self):
-        from src.Vista.Agregar import AgregarApp  # Importar aquí para evitar la importación circular
-        agregar_root = Toplevel(self.root)  # Utilizar Toplevel para crear una ventana secundaria
-        AgregarApp(agregar_root, self)  # Pasar la instancia actual de PasskeeperApp a AgregarApp
+
+        agregar_root = Toplevel(self.root)
+        AgregarApp(agregar_root, self)
         agregar_root.mainloop()
 
     def open_editar(self):

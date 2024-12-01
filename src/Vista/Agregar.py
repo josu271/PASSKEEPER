@@ -1,7 +1,8 @@
 from tkinter import *
 from tkinter import messagebox
 from src.database.tablePasskeeper import agregar_datos_passkeeper
-
+import random
+import string
 class AgregarApp:
     def __init__(self, root, parent):
         self.root = root
@@ -21,6 +22,11 @@ class AgregarApp:
         self.contrasena_entry = Entry(root, width=30, font=("Arial", 10))
         self.contrasena_entry.place(x=150, y=70)
 
+        # Botón para generar contraseña
+        generar_button = Button(root, text="Generar", bg='#8E17EB', fg="white", font=("Arial", 10),
+                                command=self.generar_contrasena)
+        generar_button.place(x=320, y=70, width=70, height=25)
+
         Label(root, text="Sitio WEB", bg="#fff", font=("Arial", 10)).place(x=30, y=110)
         self.sitio_entry = Entry(root, width=30, font=("Arial", 10))
         self.sitio_entry.place(x=150, y=110)
@@ -36,6 +42,12 @@ class AgregarApp:
 
         # Actualizar la seguridad de la contraseña automáticamente
         self.contrasena_entry.bind("<KeyRelease>", self.actualizar_seguridad)
+
+    def generar_contrasena(self):
+        caracteres = string.ascii_letters + string.digits + string.punctuation
+        contrasena = ''.join(random.choice(caracteres) for _ in range(8))
+        self.contrasena_entry.delete(0, 'end')  # Limpiar entrada
+        self.contrasena_entry.insert('end', contrasena)  # Insertar nueva contraseña
 
     def actualizar_seguridad(self, event):
         contrasena = self.contrasena_entry.get()

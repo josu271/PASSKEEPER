@@ -1,6 +1,5 @@
 import sqlite3
 import os
-from tkinter import messagebox
 
 # Ruta de la base de datos
 DB_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), "BDpasskeeper.db"))
