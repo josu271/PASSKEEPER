@@ -9,24 +9,27 @@ db = DBController()
 # Ventana del restablecimiento de contraseña
 root = Tk()
 root.title('Restablecer Contraseña')
-root.geometry('925x500+300+200')
+root.geometry('450x450+300+200')
 root.configure(bg="#fff")
 root.resizable(False, False)
 
 # Crear instancia de la clase Ventana
 app_manager = Ventana(root)
 
-# Imagen
-img = PhotoImage(file='../../Imagenes/img/login.png')
-Label(root, image=img, bg='#fff').place(x=50, y=50)
+
 
 # Formulario
-frame = Frame(root, width=400, height=400, bg="#fff")
-frame.place(x=530, y=70)
+frame = Frame(root, width=400, height=600, bg="#fff")
+frame.place(x=50, y=20)
+
+
+# Imagen
+img = PhotoImage(file='../../Imagenes/img/login.png')
+Label(frame, image=img, bg='#fff').place(x=70, y=20)
+#Titulo
 heading = Label(frame, text='Restablecer Contraseña', fg='#8e17eb', bg='#fff',
                 font=('Microsoft YaHei UI Light', 23, 'bold'))  # Cambiar el color a púrpura
 heading.place(x=10, y=5)
-
 
 # Usuario
 def on_enter_user(e):
@@ -40,11 +43,11 @@ def on_leave_user(e):
 
 
 user_entry = Entry(frame, width=25, fg='black', border=0, bg="#fff", font=('Microsoft YaHei UI Light', 11))
-user_entry.place(x=30, y=80)
+user_entry.place(x=30, y=200)
 user_entry.insert(0, 'Usuario')
 user_entry.bind('<FocusIn>', on_enter_user)
 user_entry.bind('<FocusOut>', on_leave_user)
-Frame(frame, width=295, height=2, bg='black').place(x=25, y=107)
+Frame(frame, width=295, height=2, bg='black').place(x=25, y=225)
 
 
 # Nueva contraseña
@@ -61,11 +64,11 @@ def on_leave_pass(e):
 
 
 password_entry = Entry(frame, width=25, fg='black', border=0, bg="#fff", font=('Microsoft YaHei UI Light', 11))
-password_entry.place(x=30, y=150)
+password_entry.place(x=30, y=245)
 password_entry.insert(0, 'Nueva Contraseña')
 password_entry.bind('<FocusIn>', on_enter_pass)
 password_entry.bind('<FocusOut>', on_leave_pass)
-Frame(frame, width=295, height=2, bg='black').place(x=25, y=177)
+Frame(frame, width=295, height=2, bg='black').place(x=25, y=270)
 
 
 # Confirmar contraseña
@@ -82,11 +85,11 @@ def on_leave_confirm(e):
 
 
 confirm_entry = Entry(frame, width=25, fg='black', border=0, bg="#fff", font=('Microsoft YaHei UI Light', 11))
-confirm_entry.place(x=30, y=215)
+confirm_entry.place(x=30, y=285)
 confirm_entry.insert(0, 'Confirmar Contraseña')
 confirm_entry.bind('<FocusIn>', on_enter_confirm)
 confirm_entry.bind('<FocusOut>', on_leave_confirm)
-Frame(frame, width=295, height=2, bg='black').place(x=25, y=245)
+Frame(frame, width=295, height=2, bg='black').place(x=25, y=310)
 
 
 # Función para restablecer contraseña
@@ -118,11 +121,11 @@ def restablecer_contraseña():
 
 # Botón de restablecer
 Button(frame, width=39, pady=7, text='Restablecer', bg='#8e17eb', fg='#fff', border=0,  # Cambiar el color a púrpura
-       command=restablecer_contraseña).place(x=35, y=260)
+       command=restablecer_contraseña).place(x=35, y=315)
 
 # Botón de regresar a Inicio de Sesión
 sign = Button(frame, width=25, text="Volver a inicio de sesion", border=0, bg='#fff', cursor='hand2', fg='#8e17eb',
               command=app_manager.abrir_inicio)
-sign.place(x=80, y=305)
+sign.place(x=80, y=355)
 
 root.mainloop()
