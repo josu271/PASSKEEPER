@@ -89,6 +89,7 @@ def actualizar_datos_passkeeper(usuario_pass, id_user, contraseña_pass=None, si
         return False  # Si ocurre un error, retorna False
 
 
+
 def obtener_datos_passkeeper(id_usuario):
 
     try:
@@ -110,38 +111,39 @@ def obtener_datos_passkeeper(id_usuario):
         print(f"Error al obtener los datos: {e}")
         return []
 
-def actualizar_registro_passkeeper(self, id_passkeeper, nuevo_usuario_pass, nueva_contraseña_pass, nuevo_sitio_web,
-                                   nueva_seguridad):
+def actualizar_datos_passkeeper(id_usuario, usuario, contrasena, sitio, seguridad):
+    """
+    Actualiza los datos de un registro en la tabla PassKeeper.
+    """
     try:
-        # Conexión a la base de datos
-        conexion = sqlite3.connect("BDpasskeeper.db")
-        conexion.execute("PRAGMA foreign_keys = 1")  # Habilitar soporte para claves foráneas
+        conexion = obtener_conexion()
+        if not conexion:
+            return False
+
         cursor = conexion.cursor()
 
-        # Actualizar el registro en la tabla PassKeeper
-        cursor.execute("""
-        UPDATE PassKeeper
-        SET 
-            Usuario_Pass = ?,
-            Contraseña_Pass = ?,
-            SitioWeb = ?,
-            Seguridad = ?
-        WHERE 
-            IDPasskeeper = ?
-        """, (nuevo_usuario_pass, nueva_contraseña_pass, nuevo_sitio_web, nueva_seguridad, id_passkeeper))
-
-        # Confirmar los cambios
+        # Consulta para actualizar
+        consulta = """
+            UPDATE PassKeeper 
+            SET Usuario_Pass = ?, Contraseña_Pass = ?, SitioWeb = ?, Seguridad = ?
+            WHERE IDUser = ? AND SitioWeb = ?;
+        """
+        # Ejecutar la consulta
+        cursor.execute(consulta, (usuario, contrasena, sitio, seguridad, id_usuario, sitio))
         conexion.commit()
 
-        print(f"Registro con ID {id_passkeeper} actualizado exitosamente.")
-
+        # Confirmar si se actualizó alguna fila
+        if cursor.rowcount > 0:
+            print("Datos actualizados correctamente.")
+            return True
+        else:
+            print("No se encontró un registro que coincida.")
+            return False
     except sqlite3.Error as e:
-        print(f"Error al actualizar el registro: {e}")
-
+        print(f"Error al actualizar los datos: {e}")
+        return False
     finally:
-        # Cerrar la conexión a la base de datos
-        if conexion:
-            conexion.close()
+        conexion.close()
 
 
 

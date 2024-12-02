@@ -1,5 +1,6 @@
 from tkinter import *
 from tkinter import messagebox
+from src.database.tablePasskeeper import actualizar_datos_passkeeper
 
 
 class EditarApp:
@@ -7,6 +8,7 @@ class EditarApp:
         self.root = root
         self.parent = parent  # La referencia a la instancia de PasskeeperApp
         self.valores = valores  # Los valores actuales del elemento seleccionado
+        self.id_usuario = parent.id_usuario
 
         self.root.title("Editar Contraseña")
         self.root.geometry("400x300")
@@ -65,11 +67,15 @@ class EditarApp:
             messagebox.showwarning("Formulario incompleto", "Por favor completa todos los campos.")
             return
 
-        # Actualiza la tabla en la instancia original
-        seleccion = self.parent.tabla.selection()
-        if seleccion:
-            for item in seleccion:
-                self.parent.tabla.item(item, values=(usuario, contrasena, sitio, seguridad))
-
-        # Cerrar la ventana secundaria
-        self.root.destroy()
+        # Actualizar en la base de datos
+        actualizado = actualizar_datos_passkeeper(self.id_usuario, usuario, contrasena, sitio, seguridad)
+        if actualizado:
+            # Actualiza la tabla en la instancia original
+            seleccion = self.parent.tabla.selection()
+            if seleccion:
+                for item in seleccion:
+                    self.parent.tabla.item(item, values=(usuario, contrasena, sitio, seguridad))
+            messagebox.showinfo("Éxito", "Los datos fueron actualizados correctamente.")
+            self.root.destroy()
+        else:
+            messagebox.showerror("Error", "Hubo un problema al actualizar los datos.")
