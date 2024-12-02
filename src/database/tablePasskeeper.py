@@ -136,7 +136,7 @@ def eliminar_datos_passkeeper(id_usuario, usuario_pass, sitio_web):
     except sqlite3.Error as e:
         print(f"Error al eliminar los datos: {e}")
         return False
-def actualizar_datos_passkeeper(id_usuario, usuario, contrasena, sitio, seguridad):
+def actualizar_datos_passkeeper(id_usuario, usuario, contrasena, nuevo_sitio, seguridad, antiguo_sitio):
     """
     Actualiza los datos de un registro en la tabla PassKeeper.
     """
@@ -153,8 +153,8 @@ def actualizar_datos_passkeeper(id_usuario, usuario, contrasena, sitio, segurida
             SET Usuario_Pass = ?, Contraseña_Pass = ?, SitioWeb = ?, Seguridad = ?
             WHERE IDUser = ? AND SitioWeb = ?;
         """
-        # Ejecutar la consulta
-        cursor.execute(consulta, (usuario, contrasena, sitio, seguridad, id_usuario, sitio))
+        # Ejecutar la consulta con el antiguo sitio como condición
+        cursor.execute(consulta, (usuario, contrasena, nuevo_sitio, seguridad, id_usuario, antiguo_sitio))
         conexion.commit()
 
         # Confirmar si se actualizó alguna fila
@@ -170,6 +170,7 @@ def actualizar_datos_passkeeper(id_usuario, usuario, contrasena, sitio, segurida
 
     finally:
         conexion.close()
+
 
 
 

@@ -59,23 +59,26 @@ class EditarApp:
     def guardar_cambios(self):
         usuario = self.usuario_entry.get()
         contrasena = self.contrasena_entry.get()
-        sitio = self.sitio_entry.get()
+        nuevo_sitio = self.sitio_entry.get()
         seguridad = self.seguridad_label.cget("text")
+        antiguo_sitio = self.valores[2]  # Obtener el sitio web original
 
         # Validar que todos los campos estén completos
-        if not usuario or not contrasena or not sitio:
+        if not usuario or not contrasena or not nuevo_sitio:
             messagebox.showwarning("Formulario incompleto", "Por favor completa todos los campos.")
             return
 
         # Actualizar en la base de datos
-        actualizado = actualizar_datos_passkeeper(self.id_usuario, usuario, contrasena, sitio, seguridad)
+        actualizado = actualizar_datos_passkeeper(self.id_usuario, usuario, contrasena, nuevo_sitio, seguridad,
+                                                  antiguo_sitio)
         if actualizado:
             # Actualiza la tabla en la instancia original
             seleccion = self.parent.tabla.selection()
             if seleccion:
                 for item in seleccion:
-                    self.parent.tabla.item(item, values=(usuario, contrasena, sitio, seguridad))
+                    self.parent.tabla.item(item, values=(usuario, contrasena, nuevo_sitio, seguridad))
             messagebox.showinfo("Éxito", "Los datos fueron actualizados correctamente.")
             self.root.destroy()
         else:
             messagebox.showerror("Error", "Hubo un problema al actualizar los datos.")
+
