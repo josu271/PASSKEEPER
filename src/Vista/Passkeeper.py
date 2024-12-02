@@ -1,8 +1,9 @@
 from tkinter import *
 from tkinter import ttk
-from src.database.tablePasskeeper import obtener_datos_passkeeper
+from src.database.tablePasskeeper import obtener_datos_passkeeper, eliminar_datos_passkeeper
 from src.Vista.Editar import EditarApp
 from src.Vista.Agregar import AgregarApp
+
 class PasskeeperApp:
     def __init__(self, root, id_usuario):
         self.root = root
@@ -111,7 +112,17 @@ class PasskeeperApp:
         seleccion = self.tabla.selection()
         if seleccion:
             for item in seleccion:
-                self.tabla.delete(item)
+                # Obtener los valores de la fila seleccionada
+                valores = self.tabla.item(item, "values")
+                usuario = valores[0]  # Usuario
+                sitio = valores[2]  # Sitio WEB
+
+                # Llamar a la función de eliminación en la base de datos
+                if eliminar_datos_passkeeper(self.id_usuario, usuario, sitio):
+                    # Si se elimina correctamente de la base de datos, eliminar de la tabla
+                    self.tabla.delete(item)
+                else:
+                    print(f"No se pudo eliminar el registro: {usuario}, {sitio}")
 
     def open_agregar(self):
 
