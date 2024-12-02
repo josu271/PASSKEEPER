@@ -45,13 +45,13 @@ def limpiar_formulario():
 # Ventana del inicio
 root = Tk()
 root.title('Registro de Usuario')
-root.geometry('925x500+300+200')
+root.geometry('925x500+200+100')
 root.configure(bg="#fff")
 root.resizable(False, False)
 app_manager = Ventana(root)
 # Imagen
-img = PhotoImage(file='../../Imagenes/img/login.png')
-Label(root, image=img, bg='#fff').place(x=50, y=50)
+img = PhotoImage(file='../../Imagenes/img/agreg.png')
+Label(root, image=img, bg='#fff').place(x=140, y=70)
 
 # Formulario
 frame = Frame(root, width=350, height=380, bg="white")

@@ -9,7 +9,7 @@ db = DBController()
 # Ventana del restablecimiento de contraseña
 root = Tk()
 root.title('Restablecer Contraseña')
-root.geometry('450x450+300+200')
+root.geometry('450x450+450+100')
 root.configure(bg="#fff")
 root.resizable(False, False)
 

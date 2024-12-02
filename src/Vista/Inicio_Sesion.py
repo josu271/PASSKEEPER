@@ -7,7 +7,7 @@ from src.Vista.Passkeeper import PasskeeperApp
 # Ventana del inicio
 root = Tk()
 root.title('Inicio de Sesión')
-root.geometry('925x500+300+200')
+root.geometry('925x500+200+100')
 root.configure(bg="#fff")
 root.resizable(False, False)
 
