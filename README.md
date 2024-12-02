@@ -17,3 +17,21 @@ protección de los datos con una base de datos SQLite y empleando contenedores D
 |Sulla Corbetta Jose|Desarrollador|
 |Vega Carhuallanqui Tatiana|Desarrollador|
 |Vilcahuaman Gonzales Jordan Ricardo|Desarrollador|
+
+## Requisitos
+- Python 3.x
+- Tkinter (incluido en la instalación estándar de Python)
+- Pycharm
+### Instrucciones para la instalación
+1. Clona este repositorio en su dispositivo con el siguiente comando:
+ ```bash
+ git clone https://github.com/josu271/PASSKEEPER.git
+ ```
+3. Abrir pycharm y abrir el proyecto en la ruta guardada
+   
+4. Agregar el interpreter con la siguiente ruta:  File->Settings-->Projeect:PASSKEEPER-->Python Interpreter-->Add interpreter.
+   
+6. Ingresar a la vista Inicio_Sesion ir por la ruta:
+  PASSKEEPER-->src-->Vista-->Passkeeper
+7. Iniciar la vista Inicio_Sesion y listo Empieze a guardar sus contraseñas con nuestro gestor de contraseñas "PASSKEEPER" 😊
+  
