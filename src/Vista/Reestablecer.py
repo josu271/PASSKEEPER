@@ -28,7 +28,7 @@ img = PhotoImage(file='../../Imagenes/img/login.png')
 Label(frame, image=img, bg='#fff').place(x=70, y=20)
 #Titulo
 heading = Label(frame, text='Restablecer Contraseña', fg='#8e17eb', bg='#fff',
-                font=('Microsoft YaHei UI Light', 23, 'bold'))  # Cambiar el color a púrpura
+                font=('Helvetica', 23, 'bold'))  # Cambiar el color a púrpura
 heading.place(x=10, y=5)
 
 # Usuario
@@ -121,11 +121,11 @@ def restablecer_contraseña():
 
 # Botón de restablecer
 Button(frame, width=39, pady=7, text='Restablecer', bg='#8e17eb', fg='#fff', border=0,  # Cambiar el color a púrpura
-       command=restablecer_contraseña).place(x=35, y=315)
+       command=restablecer_contraseña).place(x=35, y=330)
 
 # Botón de regresar a Inicio de Sesión
 sign = Button(frame, width=25, text="Volver a inicio de sesion", border=0, bg='#fff', cursor='hand2', fg='#8e17eb',
               command=app_manager.abrir_inicio)
-sign.place(x=80, y=355)
+sign.place(x=80, y=370)
 
 root.mainloop()

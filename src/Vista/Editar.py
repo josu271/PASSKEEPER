@@ -11,7 +11,7 @@ class EditarApp:
         self.id_usuario = parent.id_usuario
 
         self.root.title("Editar Contraseña")
-        self.root.geometry("400x300")
+        self.root.geometry("400x300+500+200")
         self.root.configure(bg="#fff")
         self.root.resizable(False, False)
 

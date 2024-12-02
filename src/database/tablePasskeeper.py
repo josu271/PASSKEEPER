@@ -86,7 +86,7 @@ def actualizar_datos_passkeeper(usuario_pass, id_user, contraseña_pass=None, si
             return False  # No se encontró el registro
     except sqlite3.Error as e:
         print(f"Error al actualizar datos en PassKeeper: {e}")
-        return False  # Si ocurre un error, retorna False
+        return False
 
 
 

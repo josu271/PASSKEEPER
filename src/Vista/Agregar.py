@@ -9,7 +9,7 @@ class AgregarApp:
         self.parent = parent
 
         self.root.title("Agregar Contraseña")
-        self.root.geometry("400x300")
+        self.root.geometry("400x300+500+200")
         self.root.configure(bg="#fff")
         self.root.resizable(False, False)
 
@@ -79,7 +79,7 @@ class AgregarApp:
             agregar_datos_passkeeper(usuarioPass, contrasena, sitio, seguridad, id_user=usuariox)
 
             # Mensaje de éxito
-            messagebox.showinfo("Éxito", "Datos agregados correctamente a la base de datos.")
+            messagebox.showinfo("Éxito", "Se ha agregado exitosamente la contraseña")
 
             # Llamar al método agregar_entrada de la instancia padre (PasskeeperApp)
             if hasattr(self.parent, "agregar_entrada"):

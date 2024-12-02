@@ -50,14 +50,14 @@ root.configure(bg="#fff")
 root.resizable(False, False)
 app_manager = Ventana(root)
 # Imagen
-img = PhotoImage(file='../../Imagenes/img/agreg.png')
-Label(root, image=img, bg='#fff').place(x=140, y=70)
+img = PhotoImage(file='../../Imagenes/img/registrar_usuario.png')
+Label(root, image=img, bg='#fff').place(x=115, y=100)
 
 # Formulario
 frame = Frame(root, width=350, height=380, bg="white")
 frame.place(x=480, y=70)
-heading = Label(frame, text='Registrar Usuario', fg='#8e17eb', bg='#fff', font=('Microsoft YaHei UI Light', 23, 'bold'))
-heading.place(x=60, y=5)
+heading = Label(frame, text='Registrar Usuario', fg='#8e17eb', bg='#fff', font=('Helvetica', 23, 'bold'))
+heading.place(x=45, y=5)
 
 
 # Funciones de ayuda para los campos

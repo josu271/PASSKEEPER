@@ -1,5 +1,5 @@
 from tkinter import *
-from tkinter import ttk
+from tkinter import ttk, messagebox
 from src.database.tablePasskeeper import obtener_datos_passkeeper, eliminar_datos_passkeeper
 from src.Vista.Editar import EditarApp
 from src.Vista.Agregar import AgregarApp
@@ -47,12 +47,12 @@ class PasskeeperApp:
         # Botón de salir
         salir_button = Button(conten, text="SALIR", bg='#8E17EB', fg="white", font=("Arial", 10, "bold"),
                               activebackground="#000000", activeforeground="white",
-                              command=self.root.destroy)  # Usa destroy para cerrar la ventana
+                              command=self.confirmar_salida)  # Llamar a la función confirmar_salida
         salir_button.place(relx=0, rely=0.46, relwidth=1, height=50)
 
         # Tabla
         ftable = Frame(self.root, width=1400, height=800, bg="#fff")
-        ftable.place(x=425, y=150, relwidth=0.7, relheight=0.7)
+        ftable.place(x=385, y=150, relwidth=0.7, relheight=0.7)
 
         style = ttk.Style()
         style.theme_use("clam")
@@ -92,7 +92,6 @@ class PasskeeperApp:
         self.img_ref = img
 
     def cargar_datos(self):
-
         datos = obtener_datos_passkeeper(self.id_usuario)
         for dato in datos:
             self.tabla.insert("", "end", values=dato)
@@ -111,36 +110,40 @@ class PasskeeperApp:
     def eliminar_seleccionado(self):
         seleccion = self.tabla.selection()
         if seleccion:
-            for item in seleccion:
-                # Obtener los valores de la fila seleccionada
-                valores = self.tabla.item(item, "values")
-                usuario = valores[0]  # Usuario
-                sitio = valores[2]  # Sitio WEB
+            respuesta = messagebox.askyesno("Confirmación", "¿Estás seguro de que quieres eliminar esta contraseña?")
+            if respuesta:
+                for item in seleccion:
+                    # Obtener los valores de la fila seleccionada
+                    valores = self.tabla.item(item, "values")
+                    usuario = valores[0]  # Usuario
+                    sitio = valores[2]  # Sitio WEB
 
-                # Llamar a la función de eliminación en la base de datos
-                if eliminar_datos_passkeeper(self.id_usuario, usuario, sitio):
-                    # Si se elimina correctamente de la base de datos, eliminar de la tabla
-                    self.tabla.delete(item)
-                else:
-                    print(f"No se pudo eliminar el registro: {usuario}, {sitio}")
+                    # Llamar a la función de eliminación en la base de datos
+                    if eliminar_datos_passkeeper(self.id_usuario, usuario, sitio):
+                        self.tabla.delete(item)
+                        messagebox.showinfo("Eliminacion exitosa", "Se ha eliminado exitosamente la contraseña.")
+                    else:
+                        messagebox.showerror("Error", f"No se pudo eliminar el registro: {usuario}, {sitio}")
+            else:
+                messagebox.showinfo("Cancelado", "La eliminación fue cancelada.")
+
+    def confirmar_salida(self):
+        respuesta = messagebox.askyesno("Confirmación", "¿Estás seguro de que quieres salir?")
+        if respuesta:
+            self.root.destroy()  # Cierra la aplicación
+
 
     def open_agregar(self):
-
         agregar_root = Toplevel(self.root)
         AgregarApp(agregar_root, self)
         agregar_root.mainloop()
 
     def open_editar(self):
-        # Obtener el elemento seleccionado
         seleccion = self.tabla.selection()
         if not seleccion:
             return
-
-        # Obtener los valores del elemento seleccionado
         item = self.tabla.item(seleccion[0])
         valores = item["values"]
-
-        # Abrir ventana de editar con los valores obtenidos
         editar_root = Toplevel(self.root)
         EditarApp(editar_root, self, valores)
         editar_root.mainloop()
