@@ -27,23 +27,27 @@ try:
         FOREIGN KEY(IDUser) REFERENCES usuario(IDUser) ON DELETE CASCADE
     )
     """)
-
     # Insertar un usuario en la tabla usuario (previamente necesario para las claves foráneas)
     cursor.execute("""
-    INSERT OR IGNORE INTO usuario (IDUser, Contraseña, Correo)
-    VALUES ('tati', '123', 'correo@example.com')
-    """)
+        INSERT OR IGNORE INTO usuario (IDUser, Contraseña, Correo)
+        VALUES ('tati', '123', 'correo@example.com')
+        """)
+    cursor.execute("""
+            INSERT OR IGNORE INTO usuario (IDUser, Contraseña, Correo)
+            VALUES ('josu', 'asd', 'correo@example.com')
+            """)
 
     # Insertar datos en la tabla PassKeeper
     cursor.execute("""
-    INSERT INTO PassKeeper (Usuario_Pass, Contraseña_Pass, SitioWeb, Seguridad, IDUser)
-    VALUES ('tati', 'micontraseña1', 'example.com', 'Alta', 'tati')
-    """)
+        INSERT INTO PassKeeper (Usuario_Pass, Contraseña_Pass, SitioWeb, Seguridad, IDUser)
+        VALUES ('tati', 'micontraseña1', 'example.com', 'Alta', 'tati')
+        """)
 
     cursor.execute("""
-    INSERT INTO PassKeeper (Usuario_Pass, Contraseña_Pass, SitioWeb, Seguridad, IDUser)
-    VALUES ('josu', 'micontraseña2', 'example.org', 'Media', 'josu')
-    """)
+        INSERT INTO PassKeeper (Usuario_Pass, Contraseña_Pass, SitioWeb, Seguridad, IDUser)
+        VALUES ('josu', 'micontraseña2', 'example.org', 'Media', 'josu')
+        """)
+
 
     # Confirmar cambios
     mi_conexion.commit()
